@@ -2,7 +2,7 @@ import express from "express";
 import errorMiddleware from "./middleware/error.middleware";
 import Controller from "./interfaces/controller.interface";
 import dotenv from "dotenv";
-
+// testing
 class App {
   private _app: express.Application;
   private readonly _port: number | string = process.env.PORT || 5000;
