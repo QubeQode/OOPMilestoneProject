@@ -6,6 +6,7 @@ export class MockAuthenticationService implements IAuthenticationService {
   readonly _db = database;
 
   public async getUserByEmailAndPassword(email: string, password: string): Promise<IUser> {
+    
     throw new Error("Method not implemented");
   }
 
