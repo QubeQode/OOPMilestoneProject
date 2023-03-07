@@ -25,6 +25,8 @@ export default class PassportConfig {
         })
     }
 
+    
+
     private localStrategy (): void {
         passport.use(new LocalStrategy(
             {
@@ -66,4 +68,8 @@ export default class PassportConfig {
 
          });
     }
+}
+
+function getUserById(id: number) {
+    throw new Error('Function not implemented.');
 }
