@@ -13,3 +13,12 @@ Jun Choi:
 - Read through the routes and methods
 - [TODO: Work on Prisma]
 - [TODO: Sudocode for routes] !!ASAP!!
+
+Jerry Fan:
+- finishing passport
+- rewatch passport tutorial
+- finished tailwind ✅
+- read prisma documentation ✅
+- read redis configuration documentation
+- create a redis account 
+- watch video tutorial for redis
