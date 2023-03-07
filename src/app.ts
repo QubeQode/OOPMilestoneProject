@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 // testing
 class App {
   private _app: express.Application;
-  private readonly _port: number | string = process.env.PORT || 5000;
+  private readonly _port: number | string = process.env.PORT || 5001;
 
   constructor(controllers: Controller[]) {
     this._app = express();
@@ -37,5 +37,7 @@ class App {
     });
   }
 }
+
+
 
 export default App;
