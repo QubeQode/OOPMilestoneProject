@@ -1,7 +1,8 @@
 import express from "express";
 import IController from "../../../interfaces/controller.interface";
 import { IAuthenticationService } from "../services";
-import { forwardAuthenticated } from "/../middleware/authentication.middleware";
+import { forwardAuthenticated, ensureAuthenticated } from "../../../middleware/authentication.middleware";
+import passport from "passport";
 
 
 class AuthenticationController implements IController {
@@ -29,8 +30,10 @@ class AuthenticationController implements IController {
   };
 
   // 🔑 These Authentication methods needs to be implemented by you
-  private login = (forwardAuthenticated, req: express.Request, res: express.Response) => {
-    
+  private login = (req: express.Request, res: express.Response) => {
+    passport.authenticate("local", {
+
+    }); 
   };
   private registration = async (req: express.Request, res: express.Response, next: express.NextFunction) => {};
   private logout = async (req: express.Request, res: express.Response) => {

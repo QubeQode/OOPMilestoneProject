@@ -6,11 +6,14 @@
 import passport from 'passport';
 import { passportStrategy} from '/../interfaces/passport.interface';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { IAuthenticationService } from '../services/IAuthentication.service';
+import { IAuthenticationService } from '../services/IAuthentication.service'
+
+
 
 export default class PassportConfig {
-    
-    constructor(strategies: passportStrategy[]) {
+    authenticationService: any;
+
+    constructor(strategies: passportStrategy[], authenticationService: IAuthenticationService) {
         this.addStrategies(strategies);
     }
 
@@ -29,7 +32,7 @@ export default class PassportConfig {
                 passwordField: 'password'
             },
             (email, password, done) => {
-                let user = get
+                this.authenticationService.getUserByEmailAndPassword(email, password)
                 .then((user) => {
                     if (!user) {
                         return done(null, false, { message: 'Incorrect email.' });
@@ -44,8 +47,6 @@ export default class PassportConfig {
         ));
     }
 
-
-
     private serializeUser(): void {
         passport.serializeUser((user: any, done: (err: any, id?: any) => void) => {
             done(null, user.id);
@@ -55,28 +56,6 @@ export default class PassportConfig {
 
     private deserializeUser(): void {
          passport.deserializeUser(function (id: number, done: (error: any, user: Express.User | false) => void) {
-
          });
     }
-
-
-
 }
-
-
-
-
-
-// const localStrategy = new LocalStrategy(
-//     {
-//     usernameField?: 'email',
-//     passwordField: 'password'
-//     },
-//     (email, password, done) => {
-
-//     }
-
-
-
-
-// )
