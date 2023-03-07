@@ -48,14 +48,22 @@ export default class PassportConfig {
     }
 
     private serializeUser(): void {
-        passport.serializeUser((user: any, done: (err: any, id?: any) => void) => {
+        passport.serializeUser((user: any, 
+            done: (err: any, id: number) => void) => {
             done(null, user.id);
         })
     }
 
-
     private deserializeUser(): void {
-         passport.deserializeUser(function (id: number, done: (error: any, user: Express.User | false) => void) {
+         passport.deserializeUser(function (id: number,
+             done: (error: any, user: Express.User | false | null) => void) {
+                let user = getUserById(id);
+                if (user) {
+                    done (null, user)
+                } else {
+                    done({ message: 'User not found'}, null)
+                }
+
          });
     }
 }

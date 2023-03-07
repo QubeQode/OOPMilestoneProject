@@ -23,6 +23,14 @@ export class MockAuthenticationService implements IAuthenticationService {
     throw new Error("User with that email does not exist");
   }
 
+  public async getUserById (id: number): Promise<null | IUser> {
+    let user = this._db.users.find((user) => user.id === id);
+    if (user) {
+      return user;
+    }
+    throw new Error("User with that id does not exist");
+  }
+
 
   public async createUser(user: any): Promise<IUser> {
 

@@ -13,11 +13,21 @@ class AuthenticationController implements IController {
     this.initializeRoutes();
   }
 
+
+
   private initializeRoutes() {
     this.router.get(`${this.path}/register`, this.showRegistrationPage);
     this.router.post(`${this.path}/register`, this.registration);
     this.router.get(`${this.path}/login`, forwardAuthenticated ,this.showLoginPage);
-    this.router.post(`${this.path}/login`, this.login);
+    
+    this.router.post(`${this.path}/login`, 
+    passport.authenticate("local", {
+      successRedirect: "/posts",
+      failureRedirect: `${this.path}/login}`,
+      failureMessage: true
+    }),
+    this.login);
+
     this.router.post(`${this.path}/logout`, this.logout);
   }
 
