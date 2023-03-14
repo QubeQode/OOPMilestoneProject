@@ -4,7 +4,7 @@ import IDatabase from "../interfaces/database.interface.ts";
 const database: IDatabase = {
   users: [
     {
-      id: "1",
+      id: 1,
       email: "gates@gmail.com",
       password: "gates123",
       firstName: "Bill",
@@ -31,7 +31,7 @@ const database: IDatabase = {
       following: [],
     },
     {
-      id: "2",
+      id: 2,
       username: "james123",
       email: "james123@gmail.com",
       password: "james123",

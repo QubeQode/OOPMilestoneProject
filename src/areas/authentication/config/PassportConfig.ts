@@ -18,7 +18,6 @@ export default class PassportConfig {
     }
 
 
-
     private addStrategies(strategies: passportStrategy[]): void {
         strategies.forEach((passportStrategy: passportStrategy) => {
             passport.use(passportStrategy.name, passportStrategy.strategy)
@@ -65,11 +64,10 @@ export default class PassportConfig {
                 } else {
                     done({ message: 'User not found'}, null)
                 }
-
          });
     }
 }
-
 function getUserById(id: number) {
+    
     throw new Error('Function not implemented.');
 }
