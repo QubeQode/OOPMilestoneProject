@@ -1,3 +1,4 @@
+import RedisStore from 'connect-redis';
 import express from "express";
 import path from "path";
 import session from "express-session";
@@ -13,9 +14,15 @@ module.exports = (app) => {
   // Logging Middleware
   app.use(morgan("tiny"));
 
+  // Initialize store.
+  let redisStore = new RedisStore({
+    
+  });
+
   // Session Configuration
   app.use(
     session({
+      store: ,
       secret: "secret",
       resave: false,
       saveUninitialized: false,

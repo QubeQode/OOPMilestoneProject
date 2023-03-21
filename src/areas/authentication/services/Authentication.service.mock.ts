@@ -1,18 +1,22 @@
 import { database } from "../../../model/fakeDB";
 import IUser from "../../../interfaces/user.interface";
 import { IAuthenticationService } from "./IAuthentication.service";
+import bcrypt from "bcrypt"; 
 
 export class MockAuthenticationService implements IAuthenticationService {
   readonly _db = database;
+  saltRounds = 10;
 
   public async getUserByEmailAndPassword(email: string, password: string): Promise<IUser> {
     let user = await this.findUserByEmail(email);
     if (user) {
-      if (user.password === password) {
-        return user;
-      }
+      bcrypt.compare(password, user.password, function(err, result) {
+        if ( result === true ) {
+          return user;
+        } 
+      });
+      return null;
     }
-    throw new Error("Password does not exist");
   }
 
   public async findUserByEmail(email: String): Promise<null | IUser> {
@@ -34,6 +38,20 @@ export class MockAuthenticationService implements IAuthenticationService {
 
   public async createUser(user: any): Promise<IUser> {
 
+    const hashedPassword = bcrypt.hash(user.password, this.saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+      const newUser = {
+        email: user.email,
+        password: hash
+      };
+      this._db.users.push(newUser);
+      return newUser;
+
+  });
     throw new Error("Method not implemented");
   }
 }
+
+
+
+
