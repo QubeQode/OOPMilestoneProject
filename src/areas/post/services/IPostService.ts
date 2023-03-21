@@ -4,6 +4,8 @@ import IPost from "../../../interfaces/post.interface";
 export default interface IPostService {
   addPost(post: IPost, username: string): void;
 
+  deletePost(id: string): void;
+
   sortPosts(posts: IPost[]): IPost[];
 
   getAllPosts(username: string): IPost[];
