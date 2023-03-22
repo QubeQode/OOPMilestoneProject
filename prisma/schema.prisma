@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int     @id @default(autoincrement()) @map("user_id")
+  username  String  @unique
+  password  String
+  email     String  @unique
+  firstName String  @map("first_name")
+  lastName  String  @map("last_name")
+  @@map(name: "user")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement()) @map("post_id")
+  creator   User      @relation(fields: [userID], references: [id])
+  userID    Int       @map("user_id")
+  createdAt DateTime  @map("created_at")
+  content   String      
+
+  @@map(name: "post")
+}
+
+model Comment {
+  id          Int       @id @default(autoincrement()) @map("comment_id")
+  creator     User      @relation(fields: [userID], references: [id])
+  userID      Int       @map("user_id")
+  currentPost Post      @relation(fields: [postID], references: [id])
+  postID      Int       @map("post_id")
+  createdAt   DateTime  @map("created_at")
+  content     String
+
+  @@map(name: "comment")
+}
+
+model Follower {
+  id              Int   @id @default(autoincrement()) @map("user_follower_id")
+  currentUser     User  @relation(fields: [userID], references: [id])
+  userID          Int   @map("user_id")
+  currentFollower User  @relation(fields: [userID], references: [id])
+  followerID      Int   @map("follower_id")
+
+  @@map(name: "follower")
+}
+
+model Repost {
+  id            Int   @id @default(autoincrement()) @map("repost_id")
+  currentPost   Post  @relation(fields: [postID], references: [id])
+  postID        Int   @map("post_id")
+  currentRepost Post  @relation(fields: [postID], references: [id])
+  originalPostID      Int   @map("original_post_id")
+
+  @@map(name: "repost")
+}
+
+model Like {
+  id          Int   @id @default(autoincrement()) @map("like_id")
+  currentUser User  @relation(fields: [userID], references: [id])
+  userID      Int   @map("user_id")
+  currentPost Post  @relation(fields: [postID], references: [id])
+  postID      Int   @map("post_id") 
+
+  @@map(name: "like")
+}
