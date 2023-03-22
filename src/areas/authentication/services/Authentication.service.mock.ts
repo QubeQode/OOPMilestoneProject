@@ -11,6 +11,9 @@ export class MockAuthenticationService implements IAuthenticationService {
     let user = await this.findUserByEmail(email);
     if (user) {
       bcrypt.compare(password, user.password, function(err, result) {
+        if (err) {
+          throw new Error("Error comparing passwords");
+        }
         if ( result === true ) {
           return user;
         } 
@@ -40,6 +43,10 @@ export class MockAuthenticationService implements IAuthenticationService {
 
     const hashedPassword = bcrypt.hash(user.password, this.saltRounds, function(err, hash) {
       // Store hash in your password DB.
+      if (err) {
+        throw new Error("Error hashing password");
+      }
+    
       const newUser = {
         email: user.email,
         password: hash

@@ -1,7 +1,9 @@
-import RedisStore from 'connect-redis';
+import RedisStore from "connect-redis";
+import { createClient } from "redis";
+require("dotenv").config();
 import express from "express";
 import path from "path";
-import session from "express-session";
+import session, { MemoryStore } from "express-session";
 import morgan from "morgan";
 
 module.exports = (app) => {
@@ -13,24 +15,47 @@ module.exports = (app) => {
 
   // Logging Middleware
   app.use(morgan("tiny"));
-
-  // Initialize store.
-  let redisStore = new RedisStore({
-    
+  let redisClient = createClient({
+    url: "redis://jerryfan:7sqtlIGnxrdDpAkWpCpSKURv1o318Q8g@redis-11280.c289.us-west-1-2.ec2.cloud.redislabs.com:11280",
   });
 
-  // Session Configuration
-  app.use(
-    session({
-      store: ,
-      secret: "secret",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 24 * 60 * 60 * 1000,
-      },
-    })
-  );
+  console.log("hit here", process.env.NODE_ENV);
+
+  const redisStore = new RedisStore({
+    client: redisClient,
+    prefix: "myapp:",
+  });
+
+  // Create a redis client instance
+  if (process.env.NODE_ENV === "production") {
+    console.log("hiiiit");
+    app.use(
+      session({
+        store: redisStore,
+        secret: "secret",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          httpOnly: true,
+          secure: false,
+          maxAge: 24 * 60 * 60 * 1000,
+        },
+      })
+    );
+  } else {
+    // Session Configuration
+    app.use(
+      session({
+        store: new MemoryStore(),
+        secret: "secret",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+          httpOnly: true,
+          secure: false,
+          maxAge: 24 * 60 * 60 * 1000,
+        },
+      })
+    );
+  }
 };
