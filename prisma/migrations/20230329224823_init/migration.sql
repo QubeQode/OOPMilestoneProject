@@ -24,14 +24,18 @@ CREATE TABLE "comment" (
     "created_at" DATETIME NOT NULL,
     "content" TEXT NOT NULL,
     "postId" INTEGER,
-    CONSTRAINT "comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post" ("post_id") ON DELETE SET NULL ON UPDATE CASCADE
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "post" ("post_id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "comment_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user" ("user_id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "like" (
     "like_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "post_id" INTEGER NOT NULL,
-    CONSTRAINT "like_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "post" ("post_id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "user_id" INTEGER NOT NULL,
+    CONSTRAINT "like_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "post" ("post_id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "like_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user" ("user_id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
