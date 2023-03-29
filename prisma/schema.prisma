@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int        @id @default(autoincrement()) @map("user_id")
+  password  String
+  email     String     @unique
+  firstName String     @map("first_name")
+  lastName  String     @map("last_name")
+  posts     Post[]
+  followedBy User[]  @relation("UserFollows")
+  following  User[]  @relation("UserFollows")
+
+  @@map(name: "user")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement()) @map("post_id")
+  creator   User      @relation(fields: [userID], references: [id])
+  userID    Int       @map("user_id")
+  createdAt DateTime  @map("created_at")
+  content   String
+  likes     Like[]
+  comments  Comment[]
+
+  parentPostId Int?
+  parentPost Post? @relation("postRepost", fields:[parentPostId], references:[id])
+  reposts Post[] @relation("postRepost")
+
+  @@map(name: "post")
+}
+
+model Comment {
+  id          Int      @id @default(autoincrement()) @map("comment_id")
+  createdAt   DateTime @map("created_at")
+  content     String
+  currentPost Post?    @relation(fields: [postId], references: [id])
+  postId      Int?
+  @@map(name: "comment")
+}
+
+model Like {
+  id          Int   @id @default(autoincrement()) @map("like_id")
+  currentPost Post  @relation(fields: [postID], references: [id])
+  postID      Int   @map("post_id")
+  @@map(name: "like")
+}
