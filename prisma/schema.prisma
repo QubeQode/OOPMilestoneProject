@@ -17,6 +17,8 @@ model User {
   firstName String     @map("first_name")
   lastName  String     @map("last_name")
   posts     Post[]
+  likes     Like[]
+  comments  Comment[]
   followedBy User[]  @relation("UserFollows")
   following  User[]  @relation("UserFollows")
 
@@ -45,6 +47,8 @@ model Comment {
   content     String
   currentPost Post?    @relation(fields: [postId], references: [id])
   postId      Int?
+  currentUser User    @relation(fields: [userId], references: [id])
+  userId      Int
   @@map(name: "comment")
 }
 
@@ -52,5 +56,7 @@ model Like {
   id          Int   @id @default(autoincrement()) @map("like_id")
   currentPost Post  @relation(fields: [postID], references: [id])
   postID      Int   @map("post_id")
+  currentUser User  @relation(fields: [userID], references: [id])
+  userID      Int   @map("user_id")
   @@map(name: "like")
 }
