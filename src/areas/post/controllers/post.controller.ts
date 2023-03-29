@@ -32,17 +32,6 @@ class PostController implements IController {
   private getPostById = async (request: Request, res: Response, next: NextFunction) => {
     const post = this._postService.findById(request.params.id)
     res.render("post/views/post", { post });
-    
-    /*
-    1. search posts table with id
-    2. return post data
-
-    render pfp
-    render username
-    render created_at
-    render msg
-    render comments and reposts
-    */
   };
 
   // 🚀 These post methods needs to be implemented by you
@@ -60,19 +49,7 @@ class PostController implements IController {
     */
   };
   private createPost = async (req: Request, res: Response, next: NextFunction) => {
-    /*
-    1. get post id
-      1.1 comment#
-      1.2 likes#
-    2. get user id
-    3. get id
-    4. 
-    5. 
-    6. 
-
-    render pfp
-    render msg
-    */
+    
   };
   private deletePost = async (request: Request, res: Response, next: NextFunction) => {
     const post = this._postService.deletePost(request.params.id);
