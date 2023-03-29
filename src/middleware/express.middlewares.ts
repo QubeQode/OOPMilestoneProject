@@ -16,7 +16,7 @@ module.exports = (app) => {
   // Logging Middleware
   app.use(morgan("tiny"));
   let redisClient = createClient({
-    url: "redis://jerryfan:7sqtlIGnxrdDpAkWpCpSKURv1o318Q8g@redis-11280.c289.us-west-1-2.ec2.cloud.redislabs.com:11280",
+    url: `redis://jerryfan:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`
   });
 
   console.log("hit here", process.env.NODE_ENV);
