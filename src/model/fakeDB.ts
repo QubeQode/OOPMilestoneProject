@@ -108,22 +108,22 @@ const post = {
 
 const posts = [
   {
-    postId: 5,
+    id: "5",
     userId: "john",
     createdAt: new Date(),
     message: "Hi there",
-    comments: "1",
-    likes: "2",
-    commentList: ["cool post"],
+    comments: 1,
+    likes: 2,
+    commentList: [{id: "1", message: "some comment", userId: "5", createdAt: "yesterday"}],
   },
   {
-    postId: 4,
+    id: "4",
     userId: "john",
     createdAt: new Date(),
     message: "this is a new post by me",
-    comments: "1",
-    likes: "2",
-    commentList: ["cool post"],
+    comments: 1,
+    likes: 2,
+    commentList: [{id: "1", message: "some comment", userId: "5", createdAt: "yesterday"}],
   },
 ];
 

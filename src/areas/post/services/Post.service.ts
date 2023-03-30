@@ -5,6 +5,7 @@ import IPostService from "./IPostService";
 export class PostService implements IPostService {
   addPost(post: IPost, username: string): void {
     // 🚀 Implement this yourself.
+    
     throw new Error("Method not implemented.");
   }
   getAllPosts(username: string): IPost[] {
