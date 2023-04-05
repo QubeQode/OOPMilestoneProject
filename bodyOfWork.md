@@ -9,10 +9,12 @@ Mohammad Fakih:
 
 Jun Choi:
 
-- Read the instructions for understanding
-- Read through the routes and methods
-- [TODO: Work on Prisma]
-- [TODO: Sudocode for routes] !!ASAP!!
+- Read the instructions for understanding✅
+- Read through the routes and methods✅
+- [TODO: Sudocode for routes] !!ASAP!!✅
+- Creating post✅
+- Deleting post
+
 
 Jerry Fan:
 - finishing passport

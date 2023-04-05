@@ -2,6 +2,7 @@ import express from "express";
 import errorMiddleware from "./middleware/error.middleware";
 import Controller from "./interfaces/controller.interface";
 import dotenv from "dotenv";
+
 // testing
 class App {
   private _app: express.Application;
@@ -10,7 +11,7 @@ class App {
   constructor(controllers: Controller[]) {
     this._app = express();
     dotenv.config();
-
+    
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();

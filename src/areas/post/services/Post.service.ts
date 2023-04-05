@@ -16,6 +16,10 @@ export class PostService implements IPostService {
     // 🚀 Implement this yourself.
     throw new Error("Method not implemented.");
   }
+  deletePost(id: string): IPost {
+    // 🚀 Implement this yourself.
+    throw new Error("Method not implemented.");
+  }
   addCommentToPost(message: { id: string; createdAt: string; userId: string; message: string }, postId: string): void {
     // 🚀 Implement this yourself.
     throw new Error("Method not implemented.");

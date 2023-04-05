@@ -6,13 +6,13 @@ import { posts } from "../../../model/fakeDB";
 export class MockPostService implements IPostService {
   addPost(post: IPost, username: string): void {
     // 🚀 Implement this yourself.
-    throw new Error("Method not implemented.");
+    posts.push(post);
   }
   getAllPosts(username: string): IPost[] {
-    return posts;
+    return posts.filter((post) => post.userId === username);
   }
   findById(id: string): IPost {
-    return posts.find(post => post.id == id)
+    return posts.find((post) => post.id == id);
   }
   addCommentToPost(message: { id: string; createdAt: string; userId: string; message: string }, postId: string): void {
     // 🚀 Implement this yourself.
@@ -20,10 +20,9 @@ export class MockPostService implements IPostService {
   }
 
   deletePost(id: string): void {
-    const idx = posts.findIndex(post => post.id == id);
+    const idx = posts.findIndex((post) => post.id == id);
     posts.splice(idx, 1);
   }
-
 
   //not now
   sortPosts(posts: IPost[]): IPost[] {
