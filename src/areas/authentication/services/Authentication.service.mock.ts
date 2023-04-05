@@ -30,6 +30,8 @@ export class MockAuthenticationService implements IAuthenticationService {
     throw new Error("User with that email does not exist");
   }
 
+  
+
   public async getUserById (id: number): Promise<null | IUser> {
     let user = this._db.users.find((user) => user.id === id);
     if (user) {
@@ -37,6 +39,8 @@ export class MockAuthenticationService implements IAuthenticationService {
     }
     throw new Error("User with that id does not exist");
   }
+
+  // public async isUserValid(user: any, password: string): Promise<boolean> {}
 
 
   public async createUser(user: any): Promise<IUser> {

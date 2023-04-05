@@ -11,5 +11,7 @@ export interface IAuthenticationService {
 
   getUserByEmailAndPassword(email: string, password: string): Promise<IUser> 
   
+  // isUserValid(user: any, password: string): Promise<boolean> 
+  
 }
 

@@ -3,14 +3,14 @@
 //----------------------------------------
 // 🚀 Configure Passport.js Local Authentication in this file
 import passport from "passport";
-import { passportStrategy } from "/../interfaces/passport.interface";
 import { Strategy as LocalStrategy } from "passport-local";
 import { IAuthenticationService } from "../services/IAuthentication.service";
+import { passportStrategy } from "/../interfaces/passport.interface";
 
 
 export interface PassportStrategy {
-  name: string;
-  strategy: any;
+  name: 'local';
+  strategy: LocalStrategy;
 }
 
 export default class PassportConfig {
@@ -19,6 +19,9 @@ export default class PassportConfig {
   constructor(strategies: PassportStrategy[], authenticationService: IAuthenticationService) {
     this.addStrategies(strategies);
     this._authenticationService = authenticationService;
+    this.localStrategy();
+    this.serializeUser();
+    this.deserializeUser();
   }
 
   private addStrategies(strategies: PassportStrategy[]): void {

@@ -28,7 +28,7 @@ class AuthenticationController implements IController {
 
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/register`, this.showRegistrationPage);
+    this.router.get(`${this.path}/register`,  ensureAuthenticated ,this.showRegistrationPage);
     this.router.post(`${this.path}/register`, this.registration);
     this.router.get(`${this.path}/login`, forwardAuthenticated ,this.showLoginPage);
     this.router.post(`${this.path}/login`, this.login);
@@ -42,7 +42,9 @@ class AuthenticationController implements IController {
   };
 
   private showRegistrationPage = (req: express.Request, res: express.Response) => {
-    res.render("authentication/views/register");
+    const message = req.session.messages? req.session.messages[0]: " ";
+    req.session.messages = [];
+    res.render("authentication/views/register", { message });
   };
 
   // 🔑 These Authentication methods needs to be implemented by you
@@ -54,7 +56,11 @@ class AuthenticationController implements IController {
     }); 
   };
   private registration = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    
+    passport.authenticate("local", {
+      successRedirect: '/posts',
+      failureRedirect: `${this.path}/register`,
+      failureMessage: true
+    })
   };
 
   private logout = async (req: express.Request, res: express.Response) => {
