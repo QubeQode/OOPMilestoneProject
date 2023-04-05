@@ -2,22 +2,27 @@
 // TODO:                                 |
 //----------------------------------------
 // 🚀 Configure Passport.js Local Authentication in this file
-//    Ensure code is fully typed wherever possible (unless inference can be made)
 import passport from "passport";
 import { passportStrategy } from "/../interfaces/passport.interface";
 import { Strategy as LocalStrategy } from "passport-local";
 import { IAuthenticationService } from "../services/IAuthentication.service";
 
+
+export interface PassportStrategy {
+  name: string;
+  strategy: any;
+}
+
 export default class PassportConfig {
   private _authenticationService: IAuthenticationService;
 
-  constructor(strategies: passportStrategy[], authenticationService: IAuthenticationService) {
+  constructor(strategies: PassportStrategy[], authenticationService: IAuthenticationService) {
     this.addStrategies(strategies);
     this._authenticationService = authenticationService;
   }
 
-  private addStrategies(strategies: passportStrategy[]): void {
-    strategies.forEach((passportStrategy: passportStrategy) => {
+  private addStrategies(strategies: PassportStrategy[]): void {
+    strategies.forEach((passportStrategy: PassportStrategy) => {
       passport.use(passportStrategy.name, passportStrategy.strategy);
     });
   }

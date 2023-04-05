@@ -24,7 +24,7 @@ module.exports = (app) => {
   const redisStore = new RedisStore({
     client: redisClient,
     prefix: "myapp:",
-  });
+});
 
   // Create a redis client instance
   if (process.env.NODE_ENV === "production") {
