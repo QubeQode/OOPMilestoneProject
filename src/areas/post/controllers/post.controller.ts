@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, Router } from "express";
 import IController from "../../../interfaces/controller.interface";
 import IPostService from "../services/IPostService";
-import IPost from "interfaces/post.interface";
+import IPost from "../../../interfaces/post.interface";
 // import { post, posts } from "../../../model/fakeDB";
 
 class PostController implements IController {
@@ -25,6 +25,7 @@ class PostController implements IController {
   // 🚀 This method should use your postService and pull from your actual fakeDB, not the temporary posts object
   private getAllPosts = (_: Request, res: Response) => {
     const posts = this._postService.getAllPosts("jun"); // [{}]
+
     res.render("post/views/posts", { posts });
     //loop through posts in posts.ejs -> render them in ejs
   };
@@ -50,17 +51,17 @@ class PostController implements IController {
     */
   };
   private createPost = async (req: Request, res: Response, next: NextFunction) => {
-    debugger;
+    const postId = req.body.postId;
     const postText = req.body.postText;
     const post: IPost = {
-      id: (Math.random() * 10).toString(),
       message: postText,
-      userId: req.user,
+      userId: (req.user as any).id,
+      postId: postId,
       likes: 0,
-      commentList: [],
-      comments: 0,
+      comments: [],
+      createdAt: 1,
     };
-    this._postService.addPost(post, post.userId);
+    this._postService.addPost(post, "jun");
     res.redirect("/posts");
   };
   private deletePost = async (request: Request, res: Response, next: NextFunction) => {
