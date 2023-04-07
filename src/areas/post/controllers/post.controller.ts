@@ -22,6 +22,7 @@ class PostController implements IController {
   // 🚀 This method should use your postService and pull from your actual fakeDB, not the temporary posts object
   private getAllPosts = (_: Request, res: Response) => {
     
+    
     res.render("post/views/posts", { posts });
   };
 

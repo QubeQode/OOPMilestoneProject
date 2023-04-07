@@ -6,11 +6,10 @@ const database: IDatabase = {
     {
       id: 1,
       email: "gates@gmail.com",
-      password: "gates123",
+      password: "$2b$10$L0TYesYeZ0zi.fjOfGpd1OyUgF0sw4CETBVMPXtNLxEKLubXQzNDm",
       firstName: "Bill",
       lastName: "Gates",
       username: "billgates",
-
     },
     {
       id: 2,
@@ -19,7 +18,6 @@ const database: IDatabase = {
       firstName: "James",
       lastName: "John",
       username: "james123",
-    
     },
     {
       id: 3,
@@ -36,7 +34,6 @@ const database: IDatabase = {
       firstName: "Armaan",
       lastName: "Armaan",
       username: "Armaan123",
-      
     },
     {
       id: 5,
@@ -45,7 +42,6 @@ const database: IDatabase = {
       firstName: "John",
       lastName: "Armaan",
       username: "John123",
-      
     },
     {
       id: 6,
@@ -54,7 +50,6 @@ const database: IDatabase = {
       firstName: "Elon",
       lastName: "Musk",
       username: "elonmusk",
-  
     },
   ],
   posts: [
@@ -88,7 +83,7 @@ const database: IDatabase = {
       message: "A post by John",
       likes: 30,
       createdAt: 1643648446955,
-      commentList: [2,1,3,4],
+      commentList: [2, 1, 3, 4],
     },
     {
       postId: 5,
@@ -196,7 +191,7 @@ const post = {
   comments: "1",
   likes: "2",
   commentList: ["cool post"],
-}
+};
 
 const posts = [
   {

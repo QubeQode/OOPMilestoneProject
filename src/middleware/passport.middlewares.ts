@@ -7,4 +7,5 @@ module.exports = (app) => {
   app.use(passport.session());
   // Use PassportConfig class here
   new PassportConfig([], new MockAuthenticationService());
+
 };

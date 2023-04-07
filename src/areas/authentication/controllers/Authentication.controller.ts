@@ -6,10 +6,10 @@ import passport from "passport";
 
 declare module "express-session" {
   interface SessionData {
-    messages: { [ key: string ]: any };
+    messages: { [key: string]: any };
   }
 }
-  
+
 declare global {
   namespace Express {
     interface Request {
@@ -26,41 +26,39 @@ class AuthenticationController implements IController {
     this.initializeRoutes();
   }
 
-
   private initializeRoutes() {
-    this.router.get(`${this.path}/register`,  ensureAuthenticated ,this.showRegistrationPage);
+    this.router.get(`${this.path}/register`, ensureAuthenticated, this.showRegistrationPage);
     this.router.post(`${this.path}/register`, this.registration);
-    this.router.get(`${this.path}/login`, forwardAuthenticated ,this.showLoginPage);
+    this.router.get(`${this.path}/login`, forwardAuthenticated, this.showLoginPage);
     this.router.post(`${this.path}/login`, this.login);
     this.router.post(`${this.path}/logout`, this.logout);
   }
 
   private showLoginPage = (req: express.Request, res: express.Response) => {
-    const message = req.session.messages? req.session.messages[0] : " ";
+    const message = req.session.messages ? req.session.messages[0] : " ";
     req.session.messages = [];
     res.render("authentication/views/login", { message });
   };
 
   private showRegistrationPage = (req: express.Request, res: express.Response) => {
-    const message = req.session.messages? req.session.messages[0]: " ";
+    const message = req.session.messages ? req.session.messages[0] : " ";
     req.session.messages = [];
     res.render("authentication/views/register", { message });
   };
 
   // 🔑 These Authentication methods needs to be implemented by you
-  private login = (req: express.Request, res: express.Response) => {
-    passport.authenticate("local", {
-      successRedirect: '/posts',
-      failureRedirect: `${this.path}/login`,
-      failureMessage: true
-    }); 
-  };
+  private login = passport.authenticate("local", {
+    successRedirect: "/posts",
+    failureRedirect: `${this.path}/login`,
+    failureMessage: true,
+  });
+
   private registration = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     passport.authenticate("local", {
-      successRedirect: '/posts',
+      successRedirect: "/posts",
       failureRedirect: `${this.path}/register`,
-      failureMessage: true
-    })
+      failureMessage: true,
+    });
   };
 
   private logout = async (req: express.Request, res: express.Response) => {
@@ -70,7 +68,7 @@ class AuthenticationController implements IController {
       }
     });
     res.redirect(`/${this.path}/login`);
-  }; 
+  };
 }
 
 export default AuthenticationController;
