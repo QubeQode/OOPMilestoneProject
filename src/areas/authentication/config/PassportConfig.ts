@@ -6,10 +6,10 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { IAuthenticationService } from "../services/IAuthentication.service";
 import { passportStrategy } from "/../interfaces/passport.interface";
-
+import bcrypt from "bcrypt";
 
 export interface PassportStrategy {
-  name: 'local';
+  name: "local";
   strategy: LocalStrategy;
 }
 
@@ -19,6 +19,7 @@ export default class PassportConfig {
   constructor(strategies: PassportStrategy[], authenticationService: IAuthenticationService) {
     this.addStrategies(strategies);
     this._authenticationService = authenticationService;
+
     this.localStrategy();
     this.serializeUser();
     this.deserializeUser();
@@ -37,19 +38,19 @@ export default class PassportConfig {
           usernameField: "email",
           passwordField: "password",
         },
-        (email, password, done) => {
-          this._authenticationService
-            .getUserByEmailAndPassword(email, password)
-            .then((user) => {
-              if (!user) {
-                return done(null, false, { message: "Incorrect email." });
-              }
-              if (user.password !== password) {
-                return done(null, false, { message: "Incorrect password." });
-              }
-              return done(null, user);
-            })
-            .catch((err) => done(err));
+        async (email, password, done) => {
+          const user = await this._authenticationService.getUserByEmailAndPassword(email, password);
+          
+
+          if (!user) {
+            return done(null, false, { message: "Incorrect email." });
+          }
+          if (await bcrypt.compare(password, user.password)) {
+            console.log("MOANNNN", user);
+            return done(null, user);
+          } else {
+            return done(null, false, { message: "Incorrect password." });
+          }
         }
       )
     );
@@ -57,12 +58,14 @@ export default class PassportConfig {
 
   private serializeUser(): void {
     passport.serializeUser((user: any, done: (err: any, id: number) => void) => {
+      console.log(user);
       done(null, user.id);
     });
   }
 
-  private deserializeUser(): void {
-    passport.deserializeUser(function (id: number, done: (error: any, user: Express.User | false | null) => void) {
+
+  private deserializeUser = () => {
+    passport.deserializeUser((id: number, done: (error: any, user: Express.User | false | null) => void) => {
       let user = this._authenticationService.getUserById(id);
       if (user) {
         done(null, user);

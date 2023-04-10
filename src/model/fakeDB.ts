@@ -7,11 +7,10 @@ const database: IDatabase = {
     {
       id: 1,
       email: "gates@gmail.com",
-      password: "gates123",
+      password: "$2b$10$L0TYesYeZ0zi.fjOfGpd1OyUgF0sw4CETBVMPXtNLxEKLubXQzNDm",
       firstName: "Bill",
       lastName: "Gates",
       username: "billgates",
-
     },
     {
       id: 2,
@@ -20,7 +19,6 @@ const database: IDatabase = {
       firstName: "James",
       lastName: "John",
       username: "james123",
-    
     },
     {
       id: 3,
@@ -37,7 +35,6 @@ const database: IDatabase = {
       firstName: "Armaan",
       lastName: "Armaan",
       username: "Armaan123",
-      
     },
     {
       id: 5,
@@ -46,7 +43,6 @@ const database: IDatabase = {
       firstName: "John",
       lastName: "Armaan",
       username: "John123",
-      
     },
     {
       id: 6,
@@ -55,7 +51,6 @@ const database: IDatabase = {
       firstName: "Elon",
       lastName: "Musk",
       username: "elonmusk",
-  
     },
   ],
   posts: [
@@ -65,7 +60,7 @@ const database: IDatabase = {
       message: "Hi there",
       likes: 0,
       createdAt: 1643648446955,
-      commentList: [],
+      comments: [],
     },
     {
       postId: 2,
@@ -73,7 +68,7 @@ const database: IDatabase = {
       message: "this is a new post by me",
       likes: 0,
       createdAt: 1643648446955,
-      commentList: [],
+      comments: [],
     },
     {
       postId: 3,
@@ -81,7 +76,7 @@ const database: IDatabase = {
       message: "Microsoft is a nice company",
       likes: 3,
       createdAt: 1643648446955,
-      commentList: [],
+      comments: [],
     },
     {
       postId: 4,
@@ -89,7 +84,7 @@ const database: IDatabase = {
       message: "A post by John",
       likes: 30,
       createdAt: 1643648446955,
-      commentList: [2,1,3,4],
+      comments: [],
     },
     {
       postId: 5,
@@ -97,14 +92,14 @@ const database: IDatabase = {
       message: "Nice weather today in Vancouver",
       likes: 12,
       createdAt: 1643648446955,
-      commentList: [],
+      comments: [],
     },
     {
       postId: 6,
       userId: 3,
       message: "Apple is a nice company",
       likes: 3,
-      commentList: [],
+      comments: [],
       createdAt: 1643648446955,
     },
     {
@@ -112,7 +107,7 @@ const database: IDatabase = {
       userId: 3,
       message: "Twitter is my toy",
       likes: 3,
-      commentList: [],
+      comments: [],
       createdAt: 1643648446955,
     },
   ],
@@ -122,21 +117,21 @@ const database: IDatabase = {
       postId: 4,
       userId: 1,
       message: "this is some random comment",
-      createdAt: 1676188223124,
+      createdAt: "1676188223124",
     },
     {
       id: 2,
       postId: 4,
       message: "string",
       userId: 3,
-      createdAt: 1643648446955,
+      createdAt: "1643648446955",
     },
     {
       id: 3,
       postId: 4,
       message: "Cool post james. Glad I decided to follow you.",
       userId: 1,
-      createdAt: 1643648446955,
+      createdAt: "1643648446955",
       // createdAt: "2012-01-05T04:13:24Z",
     },
     {
@@ -144,7 +139,7 @@ const database: IDatabase = {
       postId: 4,
       message: "The weather is always nice when you're rich like me.",
       userId: 1,
-      createdAt: 1643648446955,
+      createdAt: "1643648446955",
       // createdAt: "2012-02-05T05:13:24Z",
     },
     {
@@ -152,21 +147,21 @@ const database: IDatabase = {
       postId: 4,
       userId: 1,
       message: "this is some random comment",
-      createdAt: 1676188223124,
+      createdAt: "1676188223124",
     },
   ],
-  liked: [
-    {
-      postId: 3,
-      userId: 1,
-      liked: true,
-    },
-    {
-      postId: 3,
-      userId: 2,
-      liked: true,
-    },
-  ],
+  // liked: [
+  //   {
+  //     postId: 3,
+  //     userId: 1,
+  //     liked: true,
+  //   },
+  //   {
+  //     postId: 3,
+  //     userId: 2,
+  //     liked: true,
+  //   },
+  // ],
 };
 
 // -------- Note: I only created these as a simple test example for you, delete them later and use above db or your own --------------
@@ -199,25 +194,25 @@ const post = {
   commentList: ["cool post"],
 };
 
-const posts: IPost[] = [
-  {
-    id: "5",
-    userId: "john",
-    createdAt: new Date(),
-    message: "Hi there",
-    comments: 1,
-    likes: 2,
-    commentList: [{ id: "1", message: "some comment", userId: "5", createdAt: "yesterday" }],
-  },
-  {
-    id: "4",
-    userId: "jun",
-    createdAt: new Date(),
-    message: "this is a new post by me",
-    comments: 1,
-    likes: 2,
-    commentList: [{ id: "1", message: "some comment", userId: "5", createdAt: "yesterday" }],
-  },
-];
+// const posts: IPost[] = [
+//   {
+//     id: "5",
+//     userId: "john",
+//     createdAt: new Date(),
+//     message: "Hi there",
+//     comments: 1,
+//     likes: 2,
+//     commentList: [{ id: "1", message: "some comment", userId: "5", createdAt: "yesterday" }],
+//   },
+//   {
+//     id: "4",
+//     userId: "jun",
+//     createdAt: new Date(),
+//     message: "this is a new post by me",
+//     comments: 1,
+//     likes: 2,
+//     commentList: [{ id: "1", message: "some comment", userId: "5", createdAt: "yesterday" }],
+//   },
+// ];
 
-export { userDatabase, database, post, posts };
+export { userDatabase, database, post, /*posts*/ };
