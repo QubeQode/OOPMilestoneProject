@@ -1,18 +1,19 @@
 import IPost from "../../../interfaces/post.interface";
 import IPostService from "./IPostService";
-import { posts } from "../../../model/fakeDB";
+import { database } from "../../../model/fakeDB";
 
 // ⭐️ Feel free to change this class in any way you like. It is simply an example...
 export class MockPostService implements IPostService {
   addPost(post: IPost, username: string): void {
     // 🚀 Implement this yourself.
-    posts.push(post);
+    database.posts.push(post);
   }
   getAllPosts(username: string): IPost[] {
-    return posts.filter((post) => post.userId === username);
+    const userId = database.users.find(user => user.username === username).id
+    return database.posts.filter((post) => post.userId === userId);
   }
   findById(id: string): IPost {
-    return posts.find((post) => post.id == id);
+    return database.posts.find((post) => post.postId == Number(id));
   }
   addCommentToPost(message: { id: string; createdAt: string; userId: string; message: string }, postId: string): void {
     // 🚀 Implement this yourself.
@@ -20,8 +21,8 @@ export class MockPostService implements IPostService {
   }
 
   deletePost(id: string): void {
-    const idx = posts.findIndex((post) => post.id == id);
-    posts.splice(idx, 1);
+    const idx = database.posts.findIndex((post) => post.postId == Number(id));
+    database.posts.splice(idx, 1);
   }
 
   //not now
