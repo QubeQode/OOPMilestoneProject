@@ -9,3 +9,13 @@ create a redis account ✅
 watch video tutorial for redis ✅
 finished finished rehistration ✅
 finshed redising fakeDb ✅
+
+Jun Choi:
+
+- Read the instructions for understanding✅
+- Read through starter code: the routes and methods✅
+- Review Routes✅
+- Sudocode for routes✅
+- Review Jeddit for understanding routes✅
+- Creating post✅
+- Deleting post✅
