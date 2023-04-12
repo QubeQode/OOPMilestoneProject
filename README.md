@@ -17,5 +17,8 @@ Jun Choi:
 - Review Routes✅
 - Sudocode for routes✅
 - Review Jeddit for understanding routes✅
+    - creating post ✅
+    - deleting post ✅
+    - creating comment ✅
 - Creating post✅
 - Deleting post✅
