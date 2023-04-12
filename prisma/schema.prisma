@@ -19,10 +19,20 @@ model User {
   posts     Post[]
   likes     Like[]
   comments  Comment[]
-  followedBy User[]  @relation("UserFollows")
-  following  User[]  @relation("UserFollows")
+  followedBy Follower[]  @relation("UserFollowers")
+  following  Follower[]  @relation("UserFollows")
 
   @@map(name: "user")
+}
+
+model Follower {
+  id          Int    @id @default(autoincrement()) @map("follower_id")
+  follower    User   @relation("UserFollows", fields: [followerID], references: [id])
+  followerID  Int
+  following   User   @relation("UserFollowers", fields:[followingID], references: [id])
+  followingID Int
+
+  @@map(name: "follower")
 }
 
 model Post {
